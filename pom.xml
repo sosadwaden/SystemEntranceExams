@@ -16,6 +16,12 @@
     <module>web</module>
   </modules>
 
+  <scm>
+    <connection>scm:git:git@github.com:sosadwaden/SystemEntranceExams.git</connection>
+    <developerConnection>scm:git:git@github.com:sosadwaden/SystemEntranceExams.git</developerConnection>
+    <url>https://github.com/sosadwaden/SystemEntranceExams</url>
+  </scm>
+
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -162,6 +168,12 @@
             <phase>prepare-package</phase>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>3.0.1</version>
       </plugin>
     </plugins>
   </build>
