@@ -9,6 +9,7 @@
         crossorigin="anonymous">
 </head>
 <body>
+  <%@include file="header.jsp"%>
   <c:choose>
     <c:when test="${not empty requestScope.applicants}">
       <c:if test="${sessionScope.user.role == 'TEACHER'}">

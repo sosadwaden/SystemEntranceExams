@@ -9,13 +9,13 @@
           crossorigin="anonymous">
 </head>
 <body>
-<%@include file="header.jsp" %>
+    <%@include file="header.jsp" %>
     <h1>Информация о факультете</h1>
     <span>Имя факультета: ${requestScope.faculty.name}</span>
     <br>
     <span>Количество мест: ${requestScope.faculty.facultyCapacity}</span>
     <br>
-    <img src="${pageContext.request.contextPath}/images/${requestScope.faculty.image}" alt="Picture not found">
+    <img src="${pageContext.request.contextPath}/images/${requestScope.faculty.image}" height="400" width="400" alt="Picture not found">
     <br>
     <span>Описание факультета: ${requestScope.faculty.description}</span>
     <br>
@@ -27,18 +27,32 @@
         </form>
     </c:if>
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
-<%--        <form action="${pageContext.request.contextPath}/update-faculty?facultyId=${requestScope.faculty.id}&name=${requestScope.faculty.name}&image=${requestScope.faculty.image}" method="get">--%>
-<%--        <form action="${pageContext.request.contextPath}/update-faculty?facultyId=${requestScope.faculty.id}">--%>
-<%--            <button type="submit">Обновить факультет</button>--%>
-<%--        </form>--%>
-        <%--TODO Сделать именно кнопку с формой а не гиперссылку--%>
-        <a href="${pageContext.request.contextPath}/update-faculty?facultyId=${requestScope.faculty.id}">Обновить факультет</a>
-<%--        <form action="${pageContext.request.contextPath}/update-faculty?facultyId=${requestScope.faculty.id}&name=${requestScope.faculty.name}&facultyCapacity=${requestScope.faculty.facultyCapacity}&image=${requestScope.faculty.image}" method="get">--%>
-<%--            <button type="submit">Обновить факультет</button>--%>
-<%--        </form>--%>
-        <form action="${pageContext.request.contextPath}/delete-faculty?facultyId=${requestScope.faculty.id}" method="post">
-            <button type="submit">Удалить факультет</button>
+        <a href="${pageContext.request.contextPath}/update-faculty?facultyId=${requestScope.faculty.id}" class="link-button">Обновить информацию факультета</a>
+        <form class="inline" action="${pageContext.request.contextPath}/delete-faculty?facultyId=${requestScope.faculty.id}" method="post">
+            <button type="submit" class="link-button">Удалить факультет</button>
         </form>
     </c:if>
 </body>
 </html>
+
+<style>
+    .inline {
+        display: inline;
+    }
+
+    .link-button {
+        background: none;
+        border: none;
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 1em;
+        font-family: serif;
+    }
+    .link-button:focus {
+        outline: none;
+    }
+    .link-button:active {
+        color:red;
+    }
+</style>

@@ -11,17 +11,12 @@
 <body>
     <%@include file="header.jsp"%>
     <c:if test="${sessionScope.user.role == 'ADMIN'}">
-        <form action="${pageContext.request.contextPath}/admin">
-            <input type="submit" value="Админ страница"/>
+        <form action="${pageContext.request.contextPath}/create-faculty">
+            <input type="submit" value="Создать факультет"/>
         </form>
     </c:if>
     <h1>Список факультетов:</h1>
     <ul>
-<%--        <c:forEach var="faculty" items="${requestScope.faculties}">--%>
-<%--            <li>--%>
-<%--                <a href="${pageContext.request.contextPath}/applicant?facultyId=${faculty.id}">${faculty.name}</a>--%>
-<%--            </li>--%>
-<%--        </c:forEach>--%>
         <c:forEach var="faculty" items="${requestScope.faculties}">
             <li>
                 <a href="${pageContext.request.contextPath}/faculty?facultyId=${faculty.id}">${faculty.name}</a>

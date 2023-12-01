@@ -1,6 +1,7 @@
 package com.sosadwaden.servlet;
 
 import com.sosadwaden.dto.UpdateFacultyDto;
+import com.sosadwaden.exception.ValidationException;
 import com.sosadwaden.service.FacultyService;
 import com.sosadwaden.webUtil.JspPath;
 import jakarta.servlet.ServletException;
@@ -38,7 +39,14 @@ public class UpdateFacultyServlet extends HttpServlet {
                 .description(req.getParameter("description"))
                 .image(req.getPart("image"))
                 .build();
-        facultyService.update(updateFacultyDto);
-        resp.sendRedirect("/faculty?facultyId=" + req.getParameter("facultyId"));
+
+        try {
+            facultyService.update(updateFacultyDto);
+            resp.sendRedirect("/faculty?facultyId=" + req.getParameter("facultyId"));
+        } catch (ValidationException exception) {
+            req.setAttribute("errors", exception.getErrors());
+            doGet(req, resp);
+        }
+
     }
 }

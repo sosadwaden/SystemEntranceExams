@@ -54,6 +54,10 @@ public class UserDao implements Dao<Long, User> {
             ORDER BY score DESC
             """;
 
+    private static final String FIND_BY_EMAIL = FIND_ALL_SQL + """
+            WHERE email = ?
+            """;
+
     private static final String FIND_BY_EMAIL_AND_PASSWORD = FIND_ALL_SQL + """
             WHERE email = ? AND password = ? 
             """;
@@ -151,6 +155,25 @@ public class UserDao implements Dao<Long, User> {
             }
 
             return result;
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public Optional<User> findByEmail(String email) {
+        try (var connection = ConnectionManager.get();
+             var preparedStatement = connection.prepareStatement(FIND_BY_EMAIL)) {
+
+            preparedStatement.setString(1, email);
+
+            var resultSet = preparedStatement.executeQuery();
+            User user = null;
+            if (resultSet.next()) {
+                user = buildUser(resultSet);
+            }
+
+            return Optional.ofNullable(user);
 
         } catch (SQLException exception) {
             throw new RuntimeException(exception);

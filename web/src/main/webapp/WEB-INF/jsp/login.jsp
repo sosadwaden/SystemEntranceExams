@@ -15,7 +15,7 @@
         </label>
         <br>
         <label for="password">Пароль:
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" value="${param.password}" required>
         </label>
         <br>
         <button type="submit">Авторизоваться</button>

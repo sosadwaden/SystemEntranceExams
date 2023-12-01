@@ -24,18 +24,15 @@
     position: absolute;
     top: 1%;
     left: 96%;
-    /*transform: translate(-50%, -50%);*/
   }
   .button-login {
     position: absolute;
     top: 1%;
     left: 93%;
-    /*transform: translate(-50%, -50%);*/
   }
   .button-registration {
     position: absolute;
     top: 1%;
     left: 86%;
-    /*transform: translate(-50%, -50%);*/
   }
 </style>

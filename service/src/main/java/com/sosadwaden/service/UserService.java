@@ -6,11 +6,15 @@ import com.sosadwaden.dao.UserDao;
 import com.sosadwaden.dto.CreateUserDto;
 import com.sosadwaden.dto.ReadUserDto;
 import com.sosadwaden.entity.Faculty;
+import com.sosadwaden.entity.Status;
 import com.sosadwaden.entity.User;
+import com.sosadwaden.exception.LoginException;
 import com.sosadwaden.exception.ValidationException;
+import com.sosadwaden.login.LoginError;
 import com.sosadwaden.mapper.CreateUserMapper;
 import com.sosadwaden.mapper.ReadUserMapper;
 import com.sosadwaden.validator.CreateUserValidator;
+import com.sosadwaden.login.UserLoginChecker;
 import com.sosadwaden.validator.ValidationResult;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -25,6 +29,7 @@ public class UserService {
 
     private static final UserService INSTANCE = new UserService();
     private final CreateUserValidator createUserValidator = CreateUserValidator.getInstance();
+    private final UserLoginChecker userLoginChecker = UserLoginChecker.getInstance();
     private final UserDao userDao = UserDao.getInstance();
     private final FacultyDao facultyDao = FacultyDao.getInstance();
     private final ReadUserMapper readUserMapper = ReadUserMapper.getInstance();
@@ -39,15 +44,19 @@ public class UserService {
                 .map(readUserMapper::mapFrom).collect(toList());
     }
 
-    public Long create(CreateUserDto userDto) {
+    public Long create(CreateUserDto createUserDto) {
+        if (userLoginChecker.isEmailExist(createUserDto.getEmail())) {
+            throw new LoginException(new LoginError("login.error", "Такая почта уже используется"));
+        }
+
         // validation
-        ValidationResult validationResult = createUserValidator.isValid(userDto);
+        ValidationResult validationResult = createUserValidator.isValid(createUserDto);
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
         }
 
         // map
-        User user = createUserMapper.mapFrom(userDto);
+        User user = createUserMapper.mapFrom(createUserDto);
 
         // userDao.save
         userDao.save(user);
@@ -56,9 +65,10 @@ public class UserService {
         return user.getId();
     }
 
-    public void update(Long userId, Long facultyId) {
+    public void updateWhenUserSubmittedTheApplication(Long userId, Long facultyId) {
         User user = userDao.findById(userId).get();
         Faculty faculty = facultyDao.findById(facultyId).get();
+        user.setStatus(Status.TAKE_EXAMS);
         user.setFaculty(faculty);
         userDao.update(user);
     }

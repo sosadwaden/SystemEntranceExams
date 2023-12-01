@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 
     private void onLoginFail(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            resp.sendRedirect("/login?error&email=" + req.getParameter("email"));
+            resp.sendRedirect("/login?error&email=" + req.getParameter("email") + "&password=" + req.getParameter("password"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

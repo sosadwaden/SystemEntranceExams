@@ -11,16 +11,16 @@ public class CreateFacultyValidator implements Validator<CreateFacultyDto> {
     private static final String[] IMAGE_FORMATS = {"jpg", "jpeg", "png"};
 
     @Override
-    public com.sosadwaden.validator.ValidationResult isValid(CreateFacultyDto createFacultyDto) {
+    public ValidationResult isValid(CreateFacultyDto createFacultyDto) {
 
-        com.sosadwaden.validator.ValidationResult validationResult = new ValidationResult();
+        ValidationResult validationResult = new ValidationResult();
 
-        if (createFacultyDto.getName() == null || !createFacultyDto.getName().matches("^[a-zA-Z]{2,128}$")) {
-            validationResult.add(new com.sosadwaden.validator.RegistrationError("invalid.name", "The name contains invalid characters"));
+        if (createFacultyDto.getName() == null || !createFacultyDto.getName().matches("^[a-zA-Zа-яА-Я]{2,128}$")) {
+            validationResult.add(new RegistrationError("invalid.name", "Имя факультета содержит некорректные символы для имени"));
         }
 
         if (createFacultyDto.getFacultyCapacity() == null || !createFacultyDto.getFacultyCapacity().chars().allMatch(Character::isDigit)) {
-            validationResult.add(new RegistrationError("invalid.facultyCapacity", "The number of places in the faculty should be a number"));
+            validationResult.add(new RegistrationError("invalid.facultyCapacity", "Число мест на факультете должно быть числом"));
         }
 
         //TODO переделать

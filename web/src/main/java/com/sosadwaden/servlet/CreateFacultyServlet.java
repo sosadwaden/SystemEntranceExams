@@ -1,6 +1,7 @@
 package com.sosadwaden.servlet;
 
 import com.sosadwaden.dto.CreateFacultyDto;
+import com.sosadwaden.exception.LoginException;
 import com.sosadwaden.exception.ValidationException;
 import com.sosadwaden.service.FacultyService;
 import com.sosadwaden.webUtil.JspPath;
@@ -23,7 +24,7 @@ public class CreateFacultyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(JspPath.getJspPath("admin"))
+        req.getRequestDispatcher(JspPath.getJspPath("create-faculty"))
                 .forward(req, resp);
     }
 

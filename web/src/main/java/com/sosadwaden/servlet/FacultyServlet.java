@@ -34,7 +34,7 @@ public class FacultyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long facultyId = Long.valueOf(req.getParameter("facultyId"));
         Long userId = ((ReadUserDto) req.getSession().getAttribute("user")).getId();
-        userService.update(userId, facultyId);
+        userService.updateWhenUserSubmittedTheApplication(userId, facultyId);
         doGet(req, resp);
     }
 }

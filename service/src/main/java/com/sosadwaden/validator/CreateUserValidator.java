@@ -19,16 +19,16 @@ public class CreateUserValidator implements Validator<CreateUserDto> {
 
         com.sosadwaden.validator.ValidationResult validationResult = new ValidationResult();
 
-        if (createUserDto.getName() == null || !createUserDto.getName().matches("^[a-zA-Z�-��-�]{2,128}$")) {
-            validationResult.add(new com.sosadwaden.validator.RegistrationError("invalid.name", "Invalid name"));
+        if (createUserDto.getName() == null || !createUserDto.getName().matches("^[a-zA-Zа-яА-Я]{2,128}$")) {
+            validationResult.add(new com.sosadwaden.validator.RegistrationError("invalid.name", "Некорректное имя"));
         }
 
-        if (createUserDto.getSurname() == null || !createUserDto.getSurname().matches("^[a-zA-Z�-��-�]{2,128}$")) {
-            validationResult.add(new com.sosadwaden.validator.RegistrationError("invalid.surname", "Invalid surname"));
+        if (createUserDto.getSurname() == null || !createUserDto.getSurname().matches("^[a-zA-Zа-яА-Я]{2,128}$")) {
+            validationResult.add(new com.sosadwaden.validator.RegistrationError("invalid.surname", "Некорректная фамилия"));
         }
 
         if (!LocalDateFormatter.isValid(createUserDto.getBirthday())) {
-            validationResult.add(new com.sosadwaden.validator.RegistrationError("invalid.birthday", "Birthday is invalid"));
+            validationResult.add(new com.sosadwaden.validator.RegistrationError("invalid.birthday", "Неверный формат даты рождения"));
         }
 
         if (Role.find(createUserDto.getRole()).isEmpty()) {
@@ -36,7 +36,7 @@ public class CreateUserValidator implements Validator<CreateUserDto> {
         }
 
         if (!Stream.of(EMAIL_DOMAIN).anyMatch(createUserDto.getEmail()::endsWith)) {
-            validationResult.add(new com.sosadwaden.validator.RegistrationError("invalid.email", "Invalid email"));
+            validationResult.add(new com.sosadwaden.validator.RegistrationError("invalid.email", "Неверная почта"));
         }
 
         if (PasswordValidator.isValid(createUserDto.getPassword())) {

@@ -3,6 +3,7 @@ package com.sosadwaden.servlet;
 import com.sosadwaden.dto.CreateUserDto;
 import com.sosadwaden.entity.Role;
 import com.sosadwaden.entity.Status;
+import com.sosadwaden.exception.LoginException;
 import com.sosadwaden.exception.ValidationException;
 import com.sosadwaden.service.UserService;
 import com.sosadwaden.webUtil.JspPath;
@@ -44,7 +45,10 @@ public class RegistrationServlet extends HttpServlet {
         try {
             userService.create(userDto);
             resp.sendRedirect("/login");
-        } catch (ValidationException exception) {
+        } catch (LoginException exception) {
+            req.setAttribute("login_error", exception.getError());
+            doGet(req, resp);
+        }catch (ValidationException exception) {
             req.setAttribute("errors", exception.getErrors());
             doGet(req, resp);
         }

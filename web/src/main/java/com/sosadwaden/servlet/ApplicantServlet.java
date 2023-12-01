@@ -32,7 +32,6 @@ public class ApplicantServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //Long facultyId = (Long) req.getAttribute("facultyId");
         Long facultyId = Long.valueOf(req.getParameter("facultyId"));
         teacherService.generateExamResults(facultyId);
         doGet(req, resp);

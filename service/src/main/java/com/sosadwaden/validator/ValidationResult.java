@@ -1,6 +1,5 @@
 package com.sosadwaden.validator;
 
-import com.sosadwaden.validator.RegistrationError;
 import lombok.Getter;
 
 import java.util.ArrayList;

@@ -21,6 +21,7 @@ public class TeacherService {
         Random random = new Random();
         List<User> users = userDao.findByFaculty(facultyId);
         for (User user: users) {
+            //user.setStatus(Status.TAKE_EXAMS);
             user.setScore(random.nextInt(101));
             userDao.update(user);
         }
